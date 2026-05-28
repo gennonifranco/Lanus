@@ -5,6 +5,7 @@ export type Tournament =
   | 'Copa Argentina'
   | 'Sudamericana'
   | 'Libertadores'
+  | 'Recopa'
   | 'Amistoso'
   | 'Otro';
 
@@ -21,6 +22,8 @@ export interface Match {
   stadium: string;
   notes?: string;
   createdAt: string;
+  // ID del fixture pre-cargado del que viene este partido (si fue marcado desde Fixtures)
+  fixtureId?: string;
 }
 
 export type NewMatch = Omit<Match, 'id' | 'createdAt'>;

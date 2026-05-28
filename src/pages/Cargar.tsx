@@ -12,24 +12,30 @@ export default function Cargar() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">{historical ? 'Partido histórico' : 'Cargar partido'}</h2>
-        <button
-          className="btn-ghost text-xs"
-          onClick={() => setHistorical((v) => !v)}
-        >
-          {historical ? 'Volver a partido reciente' : 'Cargar partido histórico'}
-        </button>
+      <div>
+        <h2 className="text-lg font-semibold">Cargar partido a mano</h2>
+        <p className="mt-1 text-xs text-gray-500 dark:text-neutral-400">
+          Para partidos previos a 2025, amistosos o cualquier partido que no esté en Fixtures.
+        </p>
       </div>
 
       <MatchForm
-        allowFuture={false}
+        allowFuture={historical}
+        submitLabel={historical ? 'Guardar histórico' : 'Guardar partido'}
         onSubmit={(data) => {
           addMatch(data);
           toast.show('Partido guardado');
           nav('/partidos');
         }}
       />
+
+      <button
+        type="button"
+        className="btn-ghost w-full text-xs"
+        onClick={() => setHistorical((v) => !v)}
+      >
+        {historical ? 'Restringir a fechas pasadas' : 'Permitir cargar partido con fecha futura'}
+      </button>
     </div>
   );
 }

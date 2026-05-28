@@ -3,7 +3,7 @@ import { useMatchesCtx } from '../app/MatchesContext';
 import { useStats } from '../hooks/useStats';
 import { StatCard } from '../components/stats/StatCard';
 import { MatchCard } from '../components/matches/MatchCard';
-import { Flame, PlusCircle, TrendingUp, TrendingDown } from 'lucide-react';
+import { Flame, CalendarCheck, TrendingUp, TrendingDown } from 'lucide-react';
 
 export default function Resumen() {
   const { matches } = useMatchesCtx();
@@ -16,8 +16,8 @@ export default function Resumen() {
         <p className="text-sm text-gray-500 dark:text-neutral-400">
           Empezá cargando los partidos a los que fuiste.
         </p>
-        <Link to="/cargar" className="btn-primary">
-          <PlusCircle className="h-4 w-4" /> Cargar primer partido
+        <Link to="/fixtures" className="btn-primary">
+          <CalendarCheck className="h-4 w-4" /> Ir a Fixtures
         </Link>
       </div>
     );

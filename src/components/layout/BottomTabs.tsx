@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { Home, List, PlusCircle, BarChart3, Settings } from 'lucide-react';
+import { Home, List, CalendarCheck, BarChart3, Settings } from 'lucide-react';
 
 const tabs = [
   { to: '/', label: 'Resumen', icon: Home, end: true },
   { to: '/partidos', label: 'Partidos', icon: List },
-  { to: '/cargar', label: 'Cargar', icon: PlusCircle },
+  { to: '/fixtures', label: 'Fixtures', icon: CalendarCheck },
   { to: '/stats', label: 'Stats', icon: BarChart3 },
   { to: '/ajustes', label: 'Ajustes', icon: Settings },
 ];

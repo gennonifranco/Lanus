@@ -5,7 +5,7 @@ import { useFilters } from '../hooks/useFilters';
 import { MatchCard } from '../components/matches/MatchCard';
 import { MatchFilters } from '../components/matches/MatchFilters';
 import { MatchDetail } from '../components/matches/MatchDetail';
-import { PlusCircle } from 'lucide-react';
+import { CalendarCheck } from 'lucide-react';
 
 export default function Partidos() {
   const { matches, updateMatch, deleteMatch } = useMatchesCtx();
@@ -18,8 +18,8 @@ export default function Partidos() {
     return (
       <div className="card flex flex-col items-center gap-3 py-10 text-center">
         <p className="text-sm text-gray-500 dark:text-neutral-400">Todavía no cargaste ningún partido.</p>
-        <Link to="/cargar" className="btn-primary">
-          <PlusCircle className="h-4 w-4" /> Cargar el primero
+        <Link to="/fixtures" className="btn-primary">
+          <CalendarCheck className="h-4 w-4" /> Ir a Fixtures
         </Link>
       </div>
     );

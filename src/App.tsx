@@ -8,6 +8,7 @@ import { useStats } from './hooks/useStats';
 import Resumen from './pages/Resumen';
 import Partidos from './pages/Partidos';
 import Cargar from './pages/Cargar';
+import Fixtures from './pages/Fixtures';
 import Estadisticas from './pages/Estadisticas';
 import Ajustes from './pages/Ajustes';
 
@@ -19,6 +20,7 @@ function Shell() {
       <Routes>
         <Route path="/" element={<Resumen />} />
         <Route path="/partidos" element={<Partidos />} />
+        <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/cargar" element={<Cargar />} />
         <Route path="/stats" element={<Estadisticas />} />
         <Route path="/ajustes" element={<Ajustes />} />

@@ -7,6 +7,7 @@ export const TOURNAMENTS: Tournament[] = [
   'Copa Argentina',
   'Sudamericana',
   'Libertadores',
+  'Recopa',
   'Amistoso',
   'Otro',
 ];
