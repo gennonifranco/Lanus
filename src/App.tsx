@@ -4,7 +4,6 @@ import { AppShell } from './components/layout/AppShell';
 import { MatchesProvider, useMatchesCtx } from './app/MatchesContext';
 import { ToastProvider } from './components/ui/Toast';
 import { useTheme } from './hooks/useTheme';
-import { useStats } from './hooks/useStats';
 import Resumen from './pages/Resumen';
 import Partidos from './pages/Partidos';
 import Cargar from './pages/Cargar';
@@ -14,9 +13,8 @@ import Ajustes from './pages/Ajustes';
 
 function Shell() {
   const { matches } = useMatchesCtx();
-  const stats = useStats(matches);
   return (
-    <AppShell firstMatchDate={stats.firstMatchDate}>
+    <AppShell attendedCount={matches.length}>
       <Routes>
         <Route path="/" element={<Resumen />} />
         <Route path="/partidos" element={<Partidos />} />

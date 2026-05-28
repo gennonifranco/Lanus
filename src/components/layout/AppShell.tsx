@@ -4,13 +4,13 @@ import { BottomTabs } from './BottomTabs';
 
 interface Props {
   children: ReactNode;
-  firstMatchDate: string | null;
+  attendedCount: number;
 }
 
-export function AppShell({ children, firstMatchDate }: Props) {
+export function AppShell({ children, attendedCount }: Props) {
   return (
     <div className="min-h-screen pb-24">
-      <Header firstMatchDate={firstMatchDate} />
+      <Header attendedCount={attendedCount} />
       <main className="mx-auto max-w-xl px-4 py-4">{children}</main>
       <BottomTabs />
     </div>

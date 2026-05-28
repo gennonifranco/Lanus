@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
+import { CalendarCheck, Flame, TrendingDown, TrendingUp } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useStats } from '../hooks/useStats';
-import { StatCard } from '../components/stats/StatCard';
 import { MatchCard } from '../components/matches/MatchCard';
-import { Flame, CalendarCheck, TrendingUp, TrendingDown } from 'lucide-react';
 
 export default function Resumen() {
   const { matches } = useMatchesCtx();
@@ -14,7 +13,7 @@ export default function Resumen() {
       <div className="card flex flex-col items-center gap-3 py-10 text-center">
         <h2 className="text-lg font-semibold">¡Bienvenido, hincha!</h2>
         <p className="text-sm text-gray-500 dark:text-neutral-400">
-          Empezá cargando los partidos a los que fuiste.
+          Marcá los partidos a los que fuiste en la pestaña Fixtures.
         </p>
         <Link to="/fixtures" className="btn-primary">
           <CalendarCheck className="h-4 w-4" /> Ir a Fixtures
@@ -23,87 +22,83 @@ export default function Resumen() {
     );
   }
 
+  const TrendIcon = stats.currentStreak.type === 'L' ? TrendingDown : TrendingUp;
+
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Resumen</h2>
-
-      <div className="card flex items-center gap-3 bg-granate text-white">
-        {stats.currentStreak.type === 'L' ? (
-          <TrendingDown className="h-7 w-7 shrink-0" />
-        ) : (
-          <TrendingUp className="h-7 w-7 shrink-0" />
-        )}
-        <div>
-          <p className="text-[11px] uppercase tracking-wide text-white/75">Racha actual</p>
-          <p className="text-xl font-bold">{stats.currentStreak.label}</p>
+      {/* Hero: racha + total */}
+      <div className="card bg-granate text-white">
+        <div className="flex items-center gap-3">
+          <TrendIcon className="h-8 w-8 shrink-0" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] uppercase tracking-wide text-white/70">Racha actual</p>
+            <p className="text-xl font-bold leading-tight">{stats.currentStreak.label}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[11px] uppercase tracking-wide text-white/70">Partidos</p>
+            <p className="text-2xl font-bold tabular-nums">{stats.total}</p>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <StatCard label="Partidos" value={stats.total} accent="granate" />
-        <StatCard label="% Victoria" value={`${stats.winPct}%`} accent="win" />
-        <StatCard label="Goles a favor" value={stats.goalsFor} accent="win" />
-        <StatCard label="Goles en contra" value={stats.goalsAgainst} accent="loss" />
-      </div>
-
+      {/* Stat principal: % victoria con barra */}
       <div className="card">
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
-          Record W / D / L
-        </p>
-        <RecordBar wins={stats.wins} draws={stats.draws} losses={stats.losses} />
-        <div className="mt-2 flex justify-between text-sm tabular-nums">
+        <div className="flex items-baseline justify-between">
+          <p className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+            Victorias estando vos
+          </p>
+          <p className="text-2xl font-bold tabular-nums text-win">{stats.winPct}%</p>
+        </div>
+        <div className="mt-3 flex h-2.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-neutral-800">
+          <div className="bg-win" style={{ width: `${pct(stats.wins, stats.total)}%` }} />
+          <div className="bg-draw" style={{ width: `${pct(stats.draws, stats.total)}%` }} />
+          <div className="bg-loss" style={{ width: `${pct(stats.losses, stats.total)}%` }} />
+        </div>
+        <div className="mt-2 flex justify-between text-xs tabular-nums">
           <span className="text-win">{stats.wins} G</span>
           <span className="text-draw">{stats.draws} E</span>
           <span className="text-loss">{stats.losses} P</span>
         </div>
       </div>
 
-      <section className="space-y-2">
-        <h3 className="text-sm font-semibold">Destacados</h3>
+      {/* Goles vistos */}
+      <div className="card">
+        <p className="text-sm font-medium text-gray-600 dark:text-neutral-400">Goles que viste</p>
+        <p className="mt-1 text-3xl font-bold tabular-nums">
+          <span className="text-win">{stats.goalsFor}</span>
+          <span className="mx-1.5 text-gray-300 dark:text-neutral-600">·</span>
+          <span className="text-loss">{stats.goalsAgainst}</span>
+        </p>
+        <p className="mt-0.5 text-[11px] text-gray-500 dark:text-neutral-400">a favor · en contra</p>
+      </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <StatCard
-            label="Clásicos"
-            value={`${stats.clasicosWon}/${stats.clasicosPlayed}`}
-            hint="ganados / jugados"
-            accent="granate"
-          />
-          <StatCard
-            label="Goles/partido"
-            value={stats.avgGoalsPerMatch}
-            hint="promedio total"
-          />
+      {/* Clásicos (solo si jugaste alguno) */}
+      {stats.clasicosPlayed > 0 && (
+        <div className="card flex items-center gap-3">
+          <Flame className="h-7 w-7 shrink-0 text-granate" />
+          <div className="flex-1">
+            <p className="text-sm font-medium">Clásicos</p>
+            <p className="text-[11px] text-gray-500 dark:text-neutral-400">
+              Fuiste a {stats.clasicosPlayed}, ganaste {stats.clasicosWon}
+            </p>
+          </div>
+          <p className="text-xl font-bold tabular-nums">
+            {stats.clasicosWon}<span className="text-gray-400 dark:text-neutral-500">/{stats.clasicosPlayed}</span>
+          </p>
         </div>
+      )}
 
-        {stats.bestMatch && (
-          <div>
-            <p className="mb-1 flex items-center gap-1 text-xs font-medium text-win">
-              <Flame className="h-3.5 w-3.5" /> Mejor partido
-            </p>
-            <MatchCard match={stats.bestMatch} />
-          </div>
-        )}
-
-        {stats.worstMatch && stats.worstMatch.id !== stats.bestMatch?.id && (
-          <div>
-            <p className="mb-1 flex items-center gap-1 text-xs font-medium text-loss">
-              <Flame className="h-3.5 w-3.5" /> Peor partido
-            </p>
-            <MatchCard match={stats.worstMatch} />
-          </div>
-        )}
-      </section>
+      {/* Mejor partido */}
+      {stats.bestMatch && (
+        <div>
+          <h3 className="mb-2 text-sm font-semibold">Tu mejor partido</h3>
+          <MatchCard match={stats.bestMatch} />
+        </div>
+      )}
     </div>
   );
 }
 
-function RecordBar({ wins, draws, losses }: { wins: number; draws: number; losses: number }) {
-  const total = wins + draws + losses || 1;
-  return (
-    <div className="flex h-3 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-neutral-800">
-      <div className="bg-win" style={{ width: `${(wins / total) * 100}%` }} />
-      <div className="bg-draw" style={{ width: `${(draws / total) * 100}%` }} />
-      <div className="bg-loss" style={{ width: `${(losses / total) * 100}%` }} />
-    </div>
-  );
+function pct(n: number, total: number): number {
+  return total === 0 ? 0 : (n / total) * 100;
 }
