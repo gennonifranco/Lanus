@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="c">
+      <path d="M8 8 H56 V34 C56 48 44 58 32 60 C20 58 8 48 8 34 Z"/>
+    </clipPath>
+  </defs>
+  <path d="M8 8 H56 V34 C56 48 44 58 32 60 C20 58 8 48 8 34 Z" fill="#6B1219"/>
+  <g clip-path="url(#c)">
+    <polygon points="-4,46 22,8 38,8 12,46" fill="#ffffff"/>
+  </g>
+  <path d="M8 8 H56 V34 C56 48 44 58 32 60 C20 58 8 48 8 34 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="18" fill="#6B1219">CAL</text>
+</svg>
