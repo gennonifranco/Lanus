@@ -35,7 +35,7 @@ export const FIXTURES: Fixture[] = [
   F('2025-04-19-banfield-l', '2025-04-19', 'Banfield', 'local', 'Liga', LA_FORTALEZA, 1, 1),
   F('2025-04-27-sanmartinsj', '2025-04-27', 'San Martín de San Juan', 'local', 'Liga', LA_FORTALEZA, 1, 0),
   F('2025-05-03-atltucuman', '2025-05-03', 'Atlético Tucumán', 'visitante', 'Liga', 'Monumental José Fierro', 0, 1),
-  F('2025-05-10-boca', '2025-05-10', 'Boca Juniors', 'local', 'Liga', LA_FORTALEZA, 0, 0),
+  F('2025-05-10-boca', '2025-05-10', 'Boca Juniors', 'visitante', 'Liga', 'La Bombonera', 0, 0, 'Octavos Apertura — Eliminado por penales 4-2'),
 
   F('2025-07-14-riestra', '2025-07-14', 'Deportivo Riestra', 'visitante', 'Liga', 'Guillermo Laza', 0, 1),
   F('2025-07-19-rosario', '2025-07-19', 'Rosario Central', 'local', 'Liga', LA_FORTALEZA, 0, 1),
@@ -53,7 +53,7 @@ export const FIXTURES: Fixture[] = [
   F('2025-11-03-banfield', '2025-11-03', 'Banfield', 'visitante', 'Liga', 'Florencio Sola', 1, 2),
   F('2025-11-08-sanmartinsj', '2025-11-08', 'San Martín de San Juan', 'visitante', 'Liga', 'Hilario Sánchez', 1, 1),
   F('2025-11-14-atltucuman', '2025-11-14', 'Atlético Tucumán', 'local', 'Liga', LA_FORTALEZA, 3, 1),
-  F('2025-11-26-tigre', '2025-11-26', 'Tigre', 'visitante', 'Liga', 'José Dellagiovanna', 0, 1),
+  F('2025-11-26-tigre', '2025-11-26', 'Tigre', 'visitante', 'Liga', 'José Dellagiovanna', 0, 1, 'Octavos Clausura — Eliminado'),
 
   // ───────── COPA SUDAMERICANA 2025 (Campeón!) ─────────
   F('2025-04-03-puerto', '2025-04-03', 'Academia Puerto Cabello', 'visitante', 'Sudamericana', 'Misael Delgado', 2, 2),
@@ -63,12 +63,12 @@ export const FIXTURES: Fixture[] = [
   F('2025-05-13-vasco', '2025-05-13', 'Vasco da Gama', 'local', 'Sudamericana', LA_FORTALEZA, 1, 0),
   F('2025-05-27-puerto', '2025-05-27', 'Academia Puerto Cabello', 'local', 'Sudamericana', LA_FORTALEZA, 2, 2),
   F('2025-08-14-centralcba', '2025-08-14', 'Central Córdoba (SdE)', 'visitante', 'Sudamericana', 'Madre de Ciudades', 0, 1, 'Octavos ida'),
-  F('2025-08-21-centralcba', '2025-08-21', 'Central Córdoba (SdE)', 'local', 'Sudamericana', LA_FORTALEZA, 1, 0, 'Octavos vuelta — ganó por penales'),
+  F('2025-08-21-centralcba', '2025-08-21', 'Central Córdoba (SdE)', 'local', 'Sudamericana', LA_FORTALEZA, 1, 0, 'Octavos vuelta — Pasó por penales 4-2'),
   F('2025-09-16-fluminense', '2025-09-16', 'Fluminense', 'local', 'Sudamericana', LA_FORTALEZA, 1, 0, 'Cuartos ida'),
   F('2025-09-23-fluminense', '2025-09-23', 'Fluminense', 'visitante', 'Sudamericana', 'Maracaná', 1, 1, 'Cuartos vuelta'),
   F('2025-10-22-uchile', '2025-10-22', 'Universidad de Chile', 'neutral', 'Sudamericana', 'Nacional de Santiago', 2, 2, 'Semifinal ida (a puerta cerrada)'),
   F('2025-10-29-uchile', '2025-10-29', 'Universidad de Chile', 'local', 'Sudamericana', LA_FORTALEZA, 1, 0, 'Semifinal vuelta'),
-  F('2025-11-22-mineiro', '2025-11-22', 'Atlético Mineiro', 'neutral', 'Sudamericana', 'Defensores del Chaco', 0, 0, 'FINAL — Campeón por penales 5-4'),
+  F('2025-11-22-mineiro', '2025-11-22', 'Atlético Mineiro', 'neutral', 'Sudamericana', 'Defensores del Chaco', 0, 0, 'FINAL — ¡Campeón por penales 5-4!'),
 
   // ───────── LIGA PROFESIONAL 2026 ─────────
   F('2026-01-23-sanlorenzo', '2026-01-23', 'San Lorenzo', 'visitante', 'Liga', 'Pedro Bidegain', 3, 2),
@@ -87,15 +87,15 @@ export const FIXTURES: Fixture[] = [
   F('2026-04-20-gimnasiamza', '2026-04-20', 'Gimnasia de Mendoza', 'visitante', 'Liga', 'Víctor Legrotaglie', 0, 1),
   F('2026-04-24-centralcba', '2026-04-24', 'Central Córdoba (SdE)', 'local', 'Liga', LA_FORTALEZA, 0, 0),
   F('2026-05-02-riestra', '2026-05-02', 'Deportivo Riestra', 'local', 'Liga', LA_FORTALEZA, 0, 0),
-  F('2026-05-09-argentinos', '2026-05-09', 'Argentinos Juniors', 'visitante', 'Liga', 'Diego Armando Maradona', 0, 2),
+  F('2026-05-09-argentinos', '2026-05-09', 'Argentinos Juniors', 'visitante', 'Liga', 'Diego Armando Maradona', 0, 2, 'Octavos Apertura — Eliminado'),
 
   // ───────── COPA ARGENTINA 2026 ─────────
   F('2026-01-18-sarmientob', '2026-01-18', 'Sarmiento de La Banda', 'neutral', 'Copa Argentina', 'Desconocida', 4, 1, '32avos'),
   F('2026-05-30-instituto', '2026-05-30', 'Instituto', 'neutral', 'Copa Argentina', 'Desconocida', null, null, '16avos'),
 
   // ───────── RECOPA SUDAMERICANA 2026 (Campeón!) ─────────
-  F('2026-02-19-flamengo', '2026-02-19', 'Flamengo', 'visitante', 'Recopa', 'Maracaná', 1, 0, 'Ida'),
-  F('2026-02-26-flamengo', '2026-02-26', 'Flamengo', 'local', 'Recopa', LA_FORTALEZA, 3, 2, 'Vuelta — Campeón global 4-2'),
+  F('2026-02-19-flamengo', '2026-02-19', 'Flamengo', 'local', 'Recopa', LA_FORTALEZA, 1, 0, 'Ida'),
+  F('2026-02-26-flamengo', '2026-02-26', 'Flamengo', 'visitante', 'Recopa', 'Maracaná', 3, 2, 'Vuelta — ¡Campeón global 4-2!'),
 
   // ───────── COPA LIBERTADORES 2026 ─────────
   F('2026-04-08-mirassol', '2026-04-08', 'Mirassol', 'visitante', 'Libertadores', 'Maião', 0, 1, 'Grupo G'),
