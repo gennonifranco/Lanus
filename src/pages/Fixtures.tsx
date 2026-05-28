@@ -1,28 +1,31 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, History, Search } from 'lucide-react';
-import { FIXTURES } from '../lib/fixtures';
 import type { Fixture } from '../types/fixture';
 import { isPlayed } from '../types/fixture';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useAttendance } from '../hooks/useAttendance';
+import { useFixtures } from '../hooks/useFixtures';
 import { useToast } from '../components/ui/Toast';
 import { FixtureRow } from '../components/matches/FixtureRow';
+import { FixtureEditModal } from '../components/matches/FixtureEditModal';
 import { TOURNAMENTS } from '../lib/constants';
 
 type Filter = 'todos' | 'jugados' | 'porjugar' | 'asisti';
 
 export default function Fixtures() {
-  const { matches, addMatch, deleteMatch } = useMatchesCtx();
+  const { matches, addMatch, updateMatch, deleteMatch } = useMatchesCtx();
+  const { fixtures, overrides, updateFixture, resetFixture } = useFixtures();
   const attended = useAttendance(matches);
   const toast = useToast();
   const [filter, setFilter] = useState<Filter>('todos');
   const [tournament, setTournament] = useState<string>('todos');
   const [query, setQuery] = useState('');
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return FIXTURES.filter((f) => {
+    return fixtures.filter((f) => {
       if (filter === 'jugados' && !isPlayed(f)) return false;
       if (filter === 'porjugar' && isPlayed(f)) return false;
       if (filter === 'asisti' && !attended.has(f.id)) return false;
@@ -33,7 +36,9 @@ export default function Fixtures() {
       }
       return true;
     }).sort((a, b) => b.date.localeCompare(a.date));
-  }, [filter, tournament, query, attended]);
+  }, [fixtures, filter, tournament, query, attended]);
+
+  const editingFixture = editingId ? fixtures.find((f) => f.id === editingId) ?? null : null;
 
   function handleToggle(f: Fixture) {
     if (attended.has(f.id)) {
@@ -62,6 +67,31 @@ export default function Fixtures() {
     toast.show('¡Asistencia registrada!');
   }
 
+  function handleSaveEdit(edited: Fixture) {
+    updateFixture(edited.id, edited);
+    // Si ya está marcado como asistido, actualizar el partido guardado
+    const existing = matches.find((m) => m.fixtureId === edited.id);
+    if (existing && edited.goalsFor !== null && edited.goalsAgainst !== null) {
+      updateMatch(existing.id, {
+        opponent: edited.opponent,
+        condition: edited.condition,
+        goalsFor: edited.goalsFor,
+        goalsAgainst: edited.goalsAgainst,
+        tournament: edited.tournament,
+        stadium: edited.stadium,
+        notes: edited.notes,
+      });
+    }
+    setEditingId(null);
+    toast.show('Fixture actualizado');
+  }
+
+  function handleResetEdit(id: string) {
+    resetFixture(id);
+    setEditingId(null);
+    toast.show('Fixture restaurado');
+  }
+
   const attendedCount = attended.size;
 
   return (
@@ -69,7 +99,7 @@ export default function Fixtures() {
       <div className="flex items-baseline justify-between">
         <h2 className="text-lg font-semibold">Fixtures</h2>
         <p className="text-xs text-gray-500 dark:text-neutral-400">
-          Fuiste a {attendedCount} de {FIXTURES.filter(isPlayed).length} jugados
+          Fuiste a {attendedCount} de {fixtures.filter(isPlayed).length} jugados
         </p>
       </div>
 
@@ -123,9 +153,13 @@ export default function Fixtures() {
       >
         <History className="h-4 w-4 text-granate" />
         <span>
-          ¿Fuiste a un partido <strong>anterior a 2025</strong> o un amistoso? Cargalo a mano
+          ¿Fuiste a un amistoso u otro partido no listado? Cargalo a mano
         </span>
       </Link>
+
+      <p className="text-[11px] text-gray-500 dark:text-neutral-400">
+        Tocá un partido para editarlo si ves algo mal (rival, condición, cancha, marcador).
+      </p>
 
       {filtered.length === 0 ? (
         <div className="card flex flex-col items-center gap-2 py-8 text-center text-sm text-gray-500 dark:text-neutral-400">
@@ -136,10 +170,26 @@ export default function Fixtures() {
         <ul className="space-y-2">
           {filtered.map((f) => (
             <li key={f.id}>
-              <FixtureRow fixture={f} attended={attended.has(f.id)} onToggle={() => handleToggle(f)} />
+              <FixtureRow
+                fixture={f}
+                attended={attended.has(f.id)}
+                edited={Boolean(overrides[f.id])}
+                onToggle={() => handleToggle(f)}
+                onEdit={() => setEditingId(f.id)}
+              />
             </li>
           ))}
         </ul>
+      )}
+
+      {editingFixture && (
+        <FixtureEditModal
+          fixture={editingFixture}
+          isOverridden={Boolean(overrides[editingFixture.id])}
+          onSave={handleSaveEdit}
+          onReset={() => handleResetEdit(editingFixture.id)}
+          onClose={() => setEditingId(null)}
+        />
       )}
     </div>
   );

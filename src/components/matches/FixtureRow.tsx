@@ -1,4 +1,4 @@
-import { Check, Flame, MapPin, Plus } from 'lucide-react';
+import { Check, Flame, MapPin, Pencil, Plus } from 'lucide-react';
 import type { Fixture } from '../../types/fixture';
 import { isPlayed } from '../../types/fixture';
 import { conditionLabel, formatDateAR, getInitials, isClasico } from '../../lib/matchUtils';
@@ -6,10 +6,12 @@ import { conditionLabel, formatDateAR, getInitials, isClasico } from '../../lib/
 interface Props {
   fixture: Fixture;
   attended: boolean;
+  edited?: boolean;
   onToggle: () => void;
+  onEdit: () => void;
 }
 
-export function FixtureRow({ fixture, attended, onToggle }: Props) {
+export function FixtureRow({ fixture, attended, edited, onToggle, onEdit }: Props) {
   const played = isPlayed(fixture);
   const clasico = isClasico(fixture.opponent);
   const result =
@@ -36,6 +38,12 @@ export function FixtureRow({ fixture, attended, onToggle }: Props) {
         attended ? 'border-granate/50 bg-granate/5 dark:border-granate-400/40 dark:bg-granate/10' : ''
       }`}
     >
+      <button
+        type="button"
+        onClick={onEdit}
+        className="flex min-w-0 flex-1 items-center gap-3 text-left active:opacity-70"
+        aria-label="Editar fixture"
+      >
       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-granate text-xs font-bold text-white">
         {getInitials(fixture.opponent) || '?'}
       </div>
@@ -44,6 +52,7 @@ export function FixtureRow({ fixture, attended, onToggle }: Props) {
         <div className="flex items-center gap-1.5">
           <span className="truncate text-sm font-semibold">{fixture.opponent}</span>
           {clasico && <Flame className="h-3.5 w-3.5 shrink-0 text-granate" />}
+          {edited && <Pencil className="h-3 w-3 shrink-0 text-granate/70" />}
         </div>
         <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500 dark:text-neutral-400">
           <span>{formatDateAR(fixture.date)}</span>
@@ -63,6 +72,7 @@ export function FixtureRow({ fixture, attended, onToggle }: Props) {
           </div>
         )}
       </div>
+      </button>
 
       <div className="flex shrink-0 flex-col items-end gap-1.5">
         {played ? (
