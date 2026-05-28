@@ -1,35 +1,58 @@
-// Genera los íconos PNG (192, 512, maskable 512) a partir del SVG.
-// Usa sharp si está disponible; si no, cae a un PNG mínimo con node:zlib (escudo render manual).
+// Genera los íconos PWA y el apple-touch desde public/shield.png.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 const outDir = resolve(root, 'public/icons');
 mkdirSync(outDir, { recursive: true });
 
-const svg = readFileSync(resolve(root, 'public/favicon.svg'));
+const source = resolve(root, 'public/shield.png');
+const shield = readFileSync(source);
 
-// Maskable: misma forma pero con padding para que el sistema pueda recortar.
-const maskableSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#6B1219"/>
-  <g transform="translate(22 22) scale(0.875)">
-    <path d="M8 8 H56 V34 C56 48 44 58 32 60 C20 58 8 48 8 34 Z" fill="#ffffff"/>
-    <text x="32" y="42" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="18" fill="#6B1219">CAL</text>
-  </g>
-</svg>`;
-
-let sharp;
-try {
-  sharp = (await import('sharp')).default;
-} catch {
-  console.warn('sharp no instalado, salteando generación PNG');
-  process.exit(0);
+// Ícono base: escudo centrado sobre fondo blanco, con padding para que no quede
+// pegado a los bordes en pantalla de inicio.
+async function makeIcon(size, { background = '#ffffff', padding = 0.1 } = {}) {
+  const inner = Math.round(size * (1 - padding * 2));
+  const resized = await sharp(shield).resize(inner, inner, { fit: 'contain', background }).png().toBuffer();
+  return sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 4,
+      background,
+    },
+  })
+    .composite([{ input: resized, gravity: 'center' }])
+    .png()
+    .toBuffer();
 }
 
-await sharp(svg).resize(192, 192).png().toFile(resolve(outDir, 'icon-192.png'));
-await sharp(svg).resize(512, 512).png().toFile(resolve(outDir, 'icon-512.png'));
-await sharp(Buffer.from(maskableSvg)).resize(512, 512).png().toFile(resolve(outDir, 'icon-maskable.png'));
-await sharp(svg).resize(180, 180).png().toFile(resolve(root, 'public/apple-touch-icon.png'));
-console.log('Íconos generados');
+// Maskable: el escudo más chico sobre fondo granate sólido (para que el sistema
+// pueda recortar a círculo/cuadrado sin perder partes del escudo).
+async function makeMaskable(size) {
+  const inner = Math.round(size * 0.6);
+  const resized = await sharp(shield)
+    .resize(inner, inner, { fit: 'contain', background: { r: 107, g: 18, b: 25 } })
+    .png()
+    .toBuffer();
+  return sharp({
+    create: { width: size, height: size, channels: 4, background: { r: 107, g: 18, b: 25 } },
+  })
+    .composite([{ input: resized, gravity: 'center' }])
+    .png()
+    .toBuffer();
+}
+
+writeFileSync(resolve(outDir, 'icon-192.png'), await makeIcon(192));
+writeFileSync(resolve(outDir, 'icon-512.png'), await makeIcon(512));
+writeFileSync(resolve(outDir, 'icon-maskable.png'), await makeMaskable(512));
+writeFileSync(resolve(root, 'public/apple-touch-icon.png'), await makeIcon(180));
+
+// Favicon: el escudo recortado a 64x64, sin padding, fondo transparente.
+const favicon = await sharp(shield).resize(64, 64, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+writeFileSync(resolve(root, 'public/favicon.png'), favicon);
+
+console.log('Íconos generados desde shield.png');
