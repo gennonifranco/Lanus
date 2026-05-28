@@ -100,9 +100,9 @@ export const FIXTURES: Fixture[] = [
   // ───────── COPA LIBERTADORES 2026 ─────────
   F('2026-04-08-mirassol', '2026-04-08', 'Mirassol', 'visitante', 'Libertadores', 'Maião', 0, 1, 'Grupo G'),
   F('2026-04-16-alwaysready', '2026-04-16', 'Always Ready', 'local', 'Libertadores', LA_FORTALEZA, 1, 0, 'Grupo G'),
-  F('2026-04-28-ldu', '2026-04-28', 'LDU Quito', 'visitante', 'Libertadores', 'Rodrigo Paz Delgado', 1, 0, 'Grupo G'),
+  F('2026-04-28-ldu', '2026-04-28', 'LDU Quito', 'local', 'Libertadores', LA_FORTALEZA, 1, 0, 'Grupo G'),
   F('2026-05-05-alwaysready', '2026-05-05', 'Always Ready', 'visitante', 'Libertadores', 'Hernando Siles', 0, 4, 'Grupo G'),
-  F('2026-05-20-ldu', '2026-05-20', 'LDU Quito', 'local', 'Libertadores', LA_FORTALEZA, 2, 0, 'Grupo G'),
+  F('2026-05-20-ldu', '2026-05-20', 'LDU Quito', 'visitante', 'Libertadores', 'Rodrigo Paz Delgado', 0, 2, 'Grupo G'),
   F('2026-05-26-mirassol', '2026-05-26', 'Mirassol', 'local', 'Libertadores', LA_FORTALEZA, 1, 0, 'Grupo G'),
 
   // ───────── LIGA PROFESIONAL 2026 — FUTUROS ─────────
