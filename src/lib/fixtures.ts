@@ -18,6 +18,69 @@ const F = (
 ): Fixture => ({ id, date, opponent, condition, tournament, stadium, goalsFor, goalsAgainst, notes });
 
 export const FIXTURES: Fixture[] = [
+  // ───────── COPA DE LA LIGA 2024 (1er semestre) ─────────
+  F('2024-01-27-sanlorenzo', '2024-01-27', 'San Lorenzo', 'visitante', 'Liga', 'Pedro Bidegain', 2, 0),
+  F('2024-01-30-newells', '2024-01-30', "Newell's Old Boys", 'local', 'Liga', LA_FORTALEZA, 0, 2),
+  F('2024-02-05-godoy', '2024-02-05', 'Godoy Cruz', 'visitante', 'Liga', 'Feliciano Gambarte', 0, 1),
+  F('2024-02-11-platense', '2024-02-11', 'Platense', 'local', 'Liga', LA_FORTALEZA, 3, 0),
+  F('2024-02-14-sarmiento', '2024-02-14', 'Sarmiento', 'visitante', 'Liga', 'Eva Perón', 1, 0),
+  F('2024-02-18-boca', '2024-02-18', 'Boca Juniors', 'local', 'Liga', LA_FORTALEZA, 2, 1),
+  F('2024-02-25-banfield', '2024-02-25', 'Banfield', 'local', 'Liga', LA_FORTALEZA, 1, 1),
+  F('2024-03-03-defensa', '2024-03-03', 'Defensa y Justicia', 'visitante', 'Liga', 'Norberto Tomaghello', 4, 0),
+  F('2024-03-07-centralcba', '2024-03-07', 'Central Córdoba (SdE)', 'visitante', 'Liga', 'Madre de Ciudades', 0, 1),
+  F('2024-03-11-tigre', '2024-03-11', 'Tigre', 'visitante', 'Liga', 'José Dellagiovanna', 3, 2),
+  F('2024-03-20-belgrano', '2024-03-20', 'Belgrano', 'visitante', 'Liga', 'Gigante de Alberdi', 1, 0),
+  F('2024-03-27-union', '2024-03-27', 'Unión', 'visitante', 'Liga', '15 de Abril', 2, 2),
+  F('2024-04-07-racing', '2024-04-07', 'Racing Club', 'local', 'Liga', LA_FORTALEZA, 0, 2),
+  F('2024-04-16-estudiantes', '2024-04-16', 'Estudiantes', 'local', 'Liga', LA_FORTALEZA, 1, 2),
+
+  // ───────── COPA ARGENTINA 2024 ─────────
+  F('2024-03-15-elporvenir', '2024-03-15', 'El Porvenir', 'neutral', 'Copa Argentina', 'Desconocida', 0, 1, '32avos — Eliminado'),
+
+  // ───────── COPA SUDAMERICANA 2024 (Semifinalistas) ─────────
+  F('2024-04-03-cuiaba', '2024-04-03', 'Cuiabá', 'local', 'Sudamericana', LA_FORTALEZA, 1, 1, 'Grupo G'),
+  F('2024-04-11-garcilaso', '2024-04-11', 'Deportivo Garcilaso', 'visitante', 'Sudamericana', 'Inca Garcilaso', 2, 1, 'Grupo G'),
+  F('2024-04-25-metropolitanos', '2024-04-25', 'Metropolitanos FC', 'local', 'Sudamericana', LA_FORTALEZA, 2, 0, 'Grupo G'),
+  F('2024-05-09-garcilaso', '2024-05-09', 'Deportivo Garcilaso', 'local', 'Sudamericana', LA_FORTALEZA, 2, 0, 'Grupo G'),
+  F('2024-05-15-metropolitanos', '2024-05-15', 'Metropolitanos FC', 'visitante', 'Sudamericana', 'Olímpico de la UCV', 5, 0, 'Grupo G'),
+  F('2024-05-29-cuiaba', '2024-05-29', 'Cuiabá', 'visitante', 'Sudamericana', 'Arena Pantanal', 0, 1, 'Grupo G'),
+  F('2024-08-14-ldu', '2024-08-14', 'LDU Quito', 'visitante', 'Sudamericana', 'Rodrigo Paz Delgado', 2, 1, 'Octavos ida'),
+  F('2024-08-21-ldu', '2024-08-21', 'LDU Quito', 'local', 'Sudamericana', LA_FORTALEZA, 3, 1, 'Octavos vuelta'),
+  F('2024-09-18-medellin', '2024-09-18', 'Independiente Medellín', 'visitante', 'Sudamericana', 'Atanasio Girardot', 0, 0, 'Cuartos ida'),
+  F('2024-09-25-medellin', '2024-09-25', 'Independiente Medellín', 'local', 'Sudamericana', LA_FORTALEZA, 1, 1, 'Cuartos vuelta — Pasó por penales 6-5'),
+  F('2024-10-23-cruzeiro', '2024-10-23', 'Cruzeiro', 'visitante', 'Sudamericana', 'Mineirão', 1, 1, 'Semifinal ida'),
+  F('2024-10-30-cruzeiro', '2024-10-30', 'Cruzeiro', 'local', 'Sudamericana', LA_FORTALEZA, 0, 1, 'Semifinal vuelta — Eliminado'),
+
+  // ───────── LIGA PROFESIONAL 2024 (2do semestre) ─────────
+  // Nota: venues confirmados donde se pudieron verificar, otros pueden requerir corrección manual
+  F('2024-05-12-rivadavia', '2024-05-12', 'Independiente Rivadavia', 'visitante', 'Liga', 'Bautista Gargantini', 0, 2),
+  F('2024-05-20-sanlorenzo', '2024-05-20', 'San Lorenzo', 'visitante', 'Liga', 'Pedro Bidegain', 1, 1),
+  F('2024-05-24-estudiantes', '2024-05-24', 'Estudiantes', 'visitante', 'Liga', 'UNO', 2, 1),
+  F('2024-06-02-rosario', '2024-06-02', 'Rosario Central', 'visitante', 'Liga', 'Gigante de Arroyito', 1, 1),
+  F('2024-06-13-racing', '2024-06-13', 'Racing Club', 'visitante', 'Liga', 'El Cilindro', 2, 0),
+  F('2024-07-21-river', '2024-07-21', 'River Plate', 'local', 'Liga', LA_FORTALEZA, 2, 2),
+  F('2024-07-25-belgrano', '2024-07-25', 'Belgrano', 'local', 'Liga', LA_FORTALEZA, 3, 2),
+  F('2024-07-29-argentinos', '2024-07-29', 'Argentinos Juniors', 'visitante', 'Liga', 'Diego Armando Maradona', 0, 2),
+  F('2024-08-04-tigre', '2024-08-04', 'Tigre', 'local', 'Liga', LA_FORTALEZA, 3, 2),
+  F('2024-08-09-riestra', '2024-08-09', 'Deportivo Riestra', 'visitante', 'Liga', 'Guillermo Laza', 1, 3),
+  F('2024-08-17-centralcba', '2024-08-17', 'Central Córdoba (SdE)', 'local', 'Liga', LA_FORTALEZA, 1, 1),
+  F('2024-08-25-godoy', '2024-08-25', 'Godoy Cruz', 'local', 'Liga', LA_FORTALEZA, 1, 1),
+  F('2024-08-30-sarmiento', '2024-08-30', 'Sarmiento', 'local', 'Liga', LA_FORTALEZA, 0, 0),
+  F('2024-09-13-union', '2024-09-13', 'Unión', 'local', 'Liga', LA_FORTALEZA, 1, 1),
+  F('2024-09-22-huracan', '2024-09-22', 'Huracán', 'visitante', 'Liga', 'Tomás Adolfo Ducó', 0, 3),
+  F('2024-09-30-gimnasia', '2024-09-30', 'Gimnasia La Plata', 'visitante', 'Liga', 'Juan Carmelo Zerillo', 0, 0),
+  F('2024-10-05-newells', '2024-10-05', "Newell's Old Boys", 'local', 'Liga', LA_FORTALEZA, 1, 2),
+  F('2024-10-18-independiente', '2024-10-18', 'Independiente', 'visitante', 'Liga', 'Libertadores de América', 0, 2),
+  F('2024-10-27-tucuman', '2024-10-27', 'Atlético Tucumán', 'local', 'Liga', LA_FORTALEZA, 0, 1),
+  F('2024-11-03-boca', '2024-11-03', 'Boca Juniors', 'visitante', 'Liga', 'La Bombonera', 1, 0),
+  F('2024-11-07-talleres', '2024-11-07', 'Talleres', 'local', 'Liga', LA_FORTALEZA, 2, 1),
+  F('2024-11-11-platense', '2024-11-11', 'Platense', 'visitante', 'Liga', 'Ciudad de Vicente López', 0, 0),
+  F('2024-11-20-velez', '2024-11-20', 'Vélez Sarsfield', 'local', 'Liga', LA_FORTALEZA, 0, 0),
+  F('2024-11-24-defensa', '2024-11-24', 'Defensa y Justicia', 'local', 'Liga', LA_FORTALEZA, 0, 0),
+  F('2024-11-30-banfield', '2024-11-30', 'Banfield', 'visitante', 'Liga', 'Florencio Sola', 1, 0),
+  F('2024-12-07-instituto', '2024-12-07', 'Instituto', 'visitante', 'Liga', 'Monumental de Alta Córdoba', 2, 0),
+  F('2024-12-13-barracas', '2024-12-13', 'Barracas Central', 'visitante', 'Liga', 'Claudio Tapia', 3, 3),
+
   // ───────── LIGA PROFESIONAL 2025 ─────────
   F('2025-01-23-riestra', '2025-01-23', 'Deportivo Riestra', 'local', 'Liga', LA_FORTALEZA, 0, 2),
   F('2025-01-28-rosario', '2025-01-28', 'Rosario Central', 'visitante', 'Liga', 'Gigante de Arroyito', 1, 2),
