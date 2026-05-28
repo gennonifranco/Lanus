@@ -1,8 +1,9 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Match, NewMatch } from '../../types/match';
 import { LA_FORTALEZA, TOURNAMENTS } from '../../lib/constants';
 import { isClasico } from '../../lib/matchUtils';
-import { Flame } from 'lucide-react';
+import { compressImage } from '../../lib/imageUtils';
+import { Camera, Flame, X } from 'lucide-react';
 
 interface Props {
   initial?: Match;
@@ -35,7 +36,10 @@ export function MatchForm({
   const [tournament, setTournament] = useState<NewMatch['tournament']>(initial?.tournament ?? 'Liga');
   const [stadium, setStadium] = useState(initial?.stadium ?? (initial ? '' : LA_FORTALEZA));
   const [notes, setNotes] = useState(initial?.notes ?? '');
+  const [photo, setPhoto] = useState<string | undefined>(initial?.photo);
+  const [photoLoading, setPhotoLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!initial && condition === 'local' && !stadium) setStadium(LA_FORTALEZA);
@@ -64,7 +68,22 @@ export function MatchForm({
       tournament,
       stadium: stadium.trim(),
       notes: notes.trim() || undefined,
+      photo,
     });
+  }
+
+  async function handlePhotoChange(file: File | null | undefined) {
+    if (!file) return;
+    setError(null);
+    setPhotoLoading(true);
+    try {
+      const dataUrl = await compressImage(file);
+      setPhoto(dataUrl);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo procesar la foto');
+    } finally {
+      setPhotoLoading(false);
+    }
   }
 
   return (
@@ -174,6 +193,51 @@ export function MatchForm({
             placeholder="Qué tal estuvo el partido..."
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="label">Foto (opcional)</label>
+          {photo ? (
+            <div className="relative">
+              <img src={photo} alt="" className="w-full rounded-xl border border-gray-200 object-cover dark:border-neutral-800" />
+              <button
+                type="button"
+                onClick={() => setPhoto(undefined)}
+                className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80"
+                aria-label="Quitar foto"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="btn-secondary mt-2 w-full"
+                disabled={photoLoading}
+              >
+                <Camera className="h-4 w-4" /> Cambiar foto
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="btn-secondary w-full"
+              disabled={photoLoading}
+            >
+              <Camera className="h-4 w-4" />
+              {photoLoading ? 'Procesando...' : 'Agregar foto'}
+            </button>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              handlePhotoChange(e.target.files?.[0]);
+              e.target.value = '';
+            }}
           />
         </div>
 

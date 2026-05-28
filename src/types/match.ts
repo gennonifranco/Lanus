@@ -21,6 +21,8 @@ export interface Match {
   tournament: Tournament;
   stadium: string;
   notes?: string;
+  // Foto adjunta como data URL (JPEG comprimido)
+  photo?: string;
   createdAt: string;
   // ID del fixture pre-cargado del que viene este partido (si fue marcado desde Fixtures)
   fixtureId?: string;

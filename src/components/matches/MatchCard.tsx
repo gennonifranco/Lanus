@@ -1,7 +1,7 @@
 import type { Match } from '../../types/match';
 import { conditionLabel, formatDateAR, getInitials, getResult, isClasico } from '../../lib/matchUtils';
 import { ResultBadge } from './ResultBadge';
-import { Flame, MapPin } from 'lucide-react';
+import { Camera, Flame, MapPin } from 'lucide-react';
 
 interface Props {
   match: Match;
@@ -23,6 +23,7 @@ export function MatchCard({ match, onClick }: Props) {
         <div className="flex items-center gap-1.5">
           <span className="truncate text-sm font-semibold">{match.opponent}</span>
           {clasico && <Flame className="h-3.5 w-3.5 shrink-0 text-granate" />}
+          {match.photo && <Camera className="h-3 w-3 shrink-0 text-gray-400 dark:text-neutral-500" />}
         </div>
         <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-gray-500 dark:text-neutral-400">
           <span>{formatDateAR(match.date)}</span>

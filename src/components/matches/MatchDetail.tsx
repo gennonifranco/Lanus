@@ -79,6 +79,13 @@ export function MatchDetail({ match, onClose, onUpdate, onDelete }: Props) {
                   <p className="whitespace-pre-wrap">{match.notes}</p>
                 </div>
               )}
+
+              {match.photo && (
+                <div className="border-t border-gray-200 pt-3 dark:border-neutral-800">
+                  <p className="mb-2 text-xs font-medium text-gray-500 dark:text-neutral-400">Foto</p>
+                  <img src={match.photo} alt="" className="w-full rounded-xl" />
+                </div>
+              )}
             </div>
 
             <div className="mt-3 flex gap-2">
