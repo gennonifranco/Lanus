@@ -18,7 +18,7 @@ export interface Stats {
   clasicosPlayed: number;
   clasicosWon: number;
   topOpponents: Array<{ opponent: string; count: number }>;
-  topStadiums: Array<{ stadium: string; count: number }>;
+  stadiums: Array<{ stadium: string; count: number }>;
   byYear: Array<{ year: string; W: number; D: number; L: number; total: number }>;
   firstMatchDate: string | null;
 }
@@ -79,10 +79,9 @@ function computeStats(matches: Match[]): Stats {
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
-  const topStadiums = Array.from(stadiumCount.entries())
+  const stadiums = Array.from(stadiumCount.entries())
     .map(([stadium, count]) => ({ stadium, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
+    .sort((a, b) => b.count - a.count);
 
   const byYear = Array.from(yearMap.entries())
     .map(([year, v]) => ({ year, ...v }))
@@ -104,7 +103,7 @@ function computeStats(matches: Match[]): Stats {
     clasicosPlayed,
     clasicosWon,
     topOpponents,
-    topStadiums,
+    stadiums,
     byYear,
     firstMatchDate: sortedAsc[0]?.date ?? null,
   };

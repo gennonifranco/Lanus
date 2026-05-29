@@ -90,15 +90,15 @@ export default function Estadisticas() {
         </div>
       </section>
 
-      {/* Top canchas */}
-      {stats.topStadiums.length > 0 && (
+      {/* Canchas */}
+      {stats.stadiums.length > 0 && (
         <section>
           <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
-            Canchas
+            Canchas ({stats.stadiums.length})
           </h3>
           <div className="card">
             <ul className="divide-y divide-gray-100 dark:divide-neutral-800">
-              {stats.topStadiums.slice(0, 5).map((s) => (
+              {stats.stadiums.map((s) => (
                 <li
                   key={s.stadium}
                   className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0 text-sm"

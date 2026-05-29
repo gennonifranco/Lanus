@@ -1,23 +1,28 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { CalendarCheck } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useFilters } from '../hooks/useFilters';
 import { MatchCard } from '../components/matches/MatchCard';
 import { MatchFilters } from '../components/matches/MatchFilters';
 import { MatchDetail } from '../components/matches/MatchDetail';
-import { CalendarCheck } from 'lucide-react';
 
 export default function Partidos() {
   const { matches, updateMatch, deleteMatch } = useMatchesCtx();
   const { filters, setFilters, filtered, opponents, years, reset, isActive } = useFilters(matches);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const selected = filtered.find((m) => m.id === selectedId) ?? matches.find((m) => m.id === selectedId) ?? null;
+  const selected =
+    filtered.find((m) => m.id === selectedId) ??
+    matches.find((m) => m.id === selectedId) ??
+    null;
 
   if (matches.length === 0) {
     return (
       <div className="card flex flex-col items-center gap-3 py-10 text-center">
-        <p className="text-sm text-gray-500 dark:text-neutral-400">Todavía no cargaste ningún partido.</p>
+        <p className="text-sm text-gray-500 dark:text-neutral-400">
+          Todavía no marcaste ningún partido como asistido.
+        </p>
         <Link to="/fixtures" className="btn-primary">
           <CalendarCheck className="h-4 w-4" /> Ir a Fixtures
         </Link>
@@ -26,8 +31,13 @@ export default function Partidos() {
   }
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Partidos</h2>
+    <div className="space-y-6">
+      <div className="flex items-baseline justify-between">
+        <h2 className="text-lg font-semibold">Partidos</h2>
+        <p className="text-xs tabular-nums text-gray-500 dark:text-neutral-400">
+          {filtered.length} de {matches.length}
+        </p>
+      </div>
 
       <MatchFilters
         filters={filters}
@@ -38,13 +48,9 @@ export default function Partidos() {
         onReset={reset}
       />
 
-      <p className="text-xs text-gray-500 dark:text-neutral-400">
-        {filtered.length} {filtered.length === 1 ? 'partido' : 'partidos'}
-      </p>
-
       {filtered.length === 0 ? (
-        <div className="card text-center text-sm text-gray-500 dark:text-neutral-400">
-          No hay partidos con esos filtros.
+        <div className="card py-8 text-center text-sm text-gray-500 dark:text-neutral-400">
+          No hay partidos con esos filtros
         </div>
       ) : (
         <ul className="space-y-2">

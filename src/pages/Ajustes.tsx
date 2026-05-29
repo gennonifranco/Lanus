@@ -1,10 +1,16 @@
 import { useRef, useState } from 'react';
-import { Download, Upload, Trash2, Sun, Moon, Monitor } from 'lucide-react';
+import { Download, Monitor, Moon, Sun, Trash2, Upload } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useToast } from '../components/ui/Toast';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { exportJSON, importJSON } from '../lib/storage';
 import { useTheme, type ThemeMode } from '../hooks/useTheme';
+
+const MODES: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
+  { value: 'light', label: 'Claro', icon: Sun },
+  { value: 'dark', label: 'Oscuro', icon: Moon },
+  { value: 'system', label: 'Sistema', icon: Monitor },
+];
 
 export default function Ajustes() {
   const { matches, replaceAll } = useMatchesCtx();
@@ -39,20 +45,16 @@ export default function Ajustes() {
     reader.readAsText(file);
   }
 
-  const modes: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
-    { value: 'light', label: 'Claro', icon: Sun },
-    { value: 'dark', label: 'Oscuro', icon: Moon },
-    { value: 'system', label: 'Sistema', icon: Monitor },
-  ];
-
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <h2 className="text-lg font-semibold">Ajustes</h2>
 
-      <section className="card space-y-3">
-        <h3 className="text-sm font-semibold">Apariencia</h3>
+      <section>
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
+          Apariencia
+        </h3>
         <div className="grid grid-cols-3 gap-2">
-          {modes.map(({ value, label, icon: Icon }) => (
+          {MODES.map(({ value, label, icon: Icon }) => (
             <button
               key={value}
               onClick={() => setMode(value)}
@@ -68,11 +70,10 @@ export default function Ajustes() {
         </div>
       </section>
 
-      <section className="card space-y-3">
-        <h3 className="text-sm font-semibold">Datos</h3>
-        <p className="text-xs text-gray-500 dark:text-neutral-400">
-          Tus partidos se guardan en este dispositivo. Hacé un backup de vez en cuando.
-        </p>
+      <section>
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
+          Backup
+        </h3>
         <div className="grid grid-cols-2 gap-2">
           <button className="btn-secondary" onClick={handleExport}>
             <Download className="h-4 w-4" /> Exportar
@@ -92,6 +93,15 @@ export default function Ajustes() {
             e.target.value = '';
           }}
         />
+        <p className="mt-2 text-[11px] text-gray-500 dark:text-neutral-400">
+          Tus partidos viven en este dispositivo. Hacé un backup de vez en cuando.
+        </p>
+      </section>
+
+      <section>
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
+          Zona peligrosa
+        </h3>
         <button
           className="btn w-full bg-loss text-white hover:opacity-90"
           onClick={() => setAskWipe(true)}
@@ -101,9 +111,9 @@ export default function Ajustes() {
         </button>
       </section>
 
-      <section className="card text-xs text-gray-500 dark:text-neutral-400">
-        <p>Lanús Tracker v1.0 · {matches.length} partidos guardados</p>
-      </section>
+      <p className="text-center text-[11px] text-gray-400 dark:text-neutral-600">
+        Lanús Tracker · {matches.length} {matches.length === 1 ? 'partido' : 'partidos'}
+      </p>
 
       <ConfirmDialog
         open={askWipe}
