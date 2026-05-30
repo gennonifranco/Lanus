@@ -74,8 +74,13 @@ export default function Ajustes() {
         <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
           Backup
         </h3>
-        <div className="grid grid-cols-2 gap-2">
-          <button className="btn-secondary" onClick={handleExport}>
+        <div className="card border-amber-200 bg-amber-50 dark:border-amber-900/50 dark:bg-amber-950/30">
+          <p className="text-xs text-amber-800 dark:text-amber-300">
+            ⚠️ En iOS, si borrás la app del inicio se pierden todos los datos. Exportá seguido y guardá el archivo en iCloud o Fotos.
+          </p>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button className="btn-primary" onClick={handleExport}>
             <Download className="h-4 w-4" /> Exportar
           </button>
           <button className="btn-secondary" onClick={() => fileInputRef.current?.click()}>
@@ -93,9 +98,6 @@ export default function Ajustes() {
             e.target.value = '';
           }}
         />
-        <p className="mt-2 text-[11px] text-gray-500 dark:text-neutral-400">
-          Tus partidos viven en este dispositivo. Hacé un backup de vez en cuando.
-        </p>
       </section>
 
       <section>
