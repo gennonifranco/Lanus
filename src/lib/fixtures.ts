@@ -1,5 +1,6 @@
 import type { Fixture } from '../types/fixture';
 import { LA_FORTALEZA } from './constants';
+import { FIXTURES_HISTORICOS } from './fixtures-historicos';
 
 // Dataset de partidos oficiales de Lanús Primera masculina.
 // Fuentes: BeSoccer, ESPN Argentina, Wikipedia (Sudamericana 2025), Promiedos.
@@ -185,4 +186,6 @@ export const FIXTURES: Fixture[] = [
   F('2026-10-25-banfield', '2026-10-25', 'Banfield', 'local', 'Liga', LA_FORTALEZA, null, null),
   F('2026-11-01-gimnasiamza', '2026-11-01', 'Gimnasia de Mendoza', 'local', 'Liga', LA_FORTALEZA, null, null),
   F('2026-11-08-centralcba', '2026-11-08', 'Central Córdoba (SdE)', 'visitante', 'Liga', 'Único Madre de Ciudades', null, null),
+
+  ...FIXTURES_HISTORICOS,
 ];
