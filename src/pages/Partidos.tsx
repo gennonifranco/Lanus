@@ -9,7 +9,7 @@ import { MatchDetail } from '../components/matches/MatchDetail';
 
 export default function Partidos() {
   const { matches, updateMatch, deleteMatch } = useMatchesCtx();
-  const { filters, setFilters, filtered, opponents, years, reset, isActive } = useFilters(matches);
+  const { filters, setFilters, filtered } = useFilters(matches);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const selected =
@@ -39,14 +39,7 @@ export default function Partidos() {
         </p>
       </div>
 
-      <MatchFilters
-        filters={filters}
-        setFilters={setFilters}
-        opponents={opponents}
-        years={years}
-        isActive={isActive}
-        onReset={reset}
-      />
+      <MatchFilters filters={filters} setFilters={setFilters} />
 
       {filtered.length === 0 ? (
         <div className="card py-8 text-center text-sm text-gray-500 dark:text-neutral-400">
