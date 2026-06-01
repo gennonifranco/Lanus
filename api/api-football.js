@@ -13,8 +13,7 @@ export default async function handler(req, res) {
 
   const response = await fetch(apiUrl, {
     headers: {
-      'x-rapidapi-key': apiKey,
-      'x-rapidapi-host': API_HOST,
+      'x-apisports-key': apiKey,
     },
   });
 
