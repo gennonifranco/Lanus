@@ -26,10 +26,10 @@ function Shell() {
     });
 
     import('./lib/apiFootball').then(({ fetchLanusMatches }) => {
-      const year = new Date().getFullYear();
-      Promise.all([fetchLanusMatches(year - 1), fetchLanusMatches(year)])
-        .then(([prev, current]) => {
-          const fetched = [...prev, ...current];
+      // Plan Free de api-sports solo permite 2022-2024
+      Promise.all([fetchLanusMatches(2022), fetchLanusMatches(2023), fetchLanusMatches(2024)])
+        .then(([y2022, y2023, y2024]) => {
+          const fetched = [...y2022, ...y2023, ...y2024];
           const existingIds = new Set(matches.map((m) => m.id));
           const newMatches = fetched.filter((m) => !existingIds.has(m.id));
           if (newMatches.length === 0) return;

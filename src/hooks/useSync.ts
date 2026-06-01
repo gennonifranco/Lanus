@@ -17,13 +17,13 @@ export function useSync(matches: Match[], replaceAll: (next: Match[]) => void) {
   const sync = useCallback(async (): Promise<SyncResult> => {
     setSyncing(true);
     try {
-      const currentYear = new Date().getFullYear();
-      // Traer temporada actual y anterior por si el año empezó
-      const [current, prev] = await Promise.all([
-        fetchLanusMatches(currentYear),
-        fetchLanusMatches(currentYear - 1),
+      // El plan Free de api-sports solo permite 2022-2024
+      const [y2022, y2023, y2024] = await Promise.all([
+        fetchLanusMatches(2022),
+        fetchLanusMatches(2023),
+        fetchLanusMatches(2024),
       ]);
-      const fetched = [...prev, ...current];
+      const fetched = [...y2022, ...y2023, ...y2024];
 
       const existingIds = new Set(matches.map((m) => m.id));
       // Partidos que vienen de la API tienen id "api-XXXX"
