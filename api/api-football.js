@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   }
 
   const data = await response.json();
+  console.log('API-Football response keys:', Object.keys(data), 'errors:', data.errors);
   res.setHeader('Access-Control-Allow-Origin', '*');
   return res.status(200).json(data);
 }
