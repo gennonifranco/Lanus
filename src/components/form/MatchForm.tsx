@@ -244,7 +244,7 @@ export function MatchForm({
         {error && <p className="text-sm text-loss">{error}</p>}
       </div>
 
-      <div className="flex gap-2">
+      <div className="sticky bottom-20 z-10 flex gap-2 bg-white/90 py-3 backdrop-blur dark:bg-neutral-950/90">
         {onCancel && (
           <button type="button" className="btn-secondary flex-1" onClick={onCancel}>
             Cancelar
