@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { CalendarCheck } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useFilters } from '../hooks/useFilters';
@@ -11,6 +11,16 @@ export default function Partidos() {
   const { matches, updateMatch, deleteMatch } = useMatchesCtx();
   const { filters, setFilters, filtered } = useFilters(matches);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) {
+      setFilters((prev) => ({ ...prev, query: q }));
+      setSearchParams({}, { replace: true });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const selected =
     filtered.find((m) => m.id === selectedId) ??

@@ -99,14 +99,16 @@ export default function Estadisticas() {
           <div className="card">
             <ul className="divide-y divide-gray-100 dark:divide-neutral-800">
               {stats.stadiums.map((s) => (
-                <li
-                  key={s.stadium}
-                  className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0 text-sm"
-                >
-                  <span className="truncate">{s.stadium}</span>
-                  <span className="shrink-0 tabular-nums text-gray-500 dark:text-neutral-400">
-                    {s.count}
-                  </span>
+                <li key={s.stadium} className="first:pt-0 last:pb-0">
+                  <Link
+                    to={`/partidos?q=${encodeURIComponent(s.stadium)}`}
+                    className="flex items-center justify-between gap-3 py-2.5 text-sm hover:text-granate transition-colors"
+                  >
+                    <span className="truncate">{s.stadium}</span>
+                    <span className="shrink-0 tabular-nums text-gray-500 dark:text-neutral-400">
+                      {s.count}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
