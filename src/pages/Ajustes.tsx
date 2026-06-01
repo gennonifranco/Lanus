@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
-import { Download, Monitor, Moon, Sun, Trash2, Upload } from 'lucide-react';
+import { Download, Loader2, Monitor, Moon, RefreshCw, Sun, Trash2, Upload } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useToast } from '../components/ui/Toast';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { exportJSON, importJSON } from '../lib/storage';
 import { useTheme, type ThemeMode } from '../hooks/useTheme';
+import { useSync } from '../hooks/useSync';
 
 const MODES: { value: ThemeMode; label: string; icon: typeof Sun }[] = [
   { value: 'light', label: 'Claro', icon: Sun },
@@ -18,6 +19,7 @@ export default function Ajustes() {
   const { mode, setMode } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [askWipe, setAskWipe] = useState(false);
+  const { sync, syncing, lastSync } = useSync(matches, replaceAll);
 
   function handleExport() {
     const blob = new Blob([exportJSON(matches)], { type: 'application/json' });
@@ -68,6 +70,46 @@ export default function Ajustes() {
             </button>
           ))}
         </div>
+      </section>
+
+      <section>
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-neutral-400">
+          Sincronización automática
+        </h3>
+        <p className="mb-3 text-xs text-gray-500 dark:text-neutral-400">
+          Trae los resultados de los últimos partidos de Lanús desde API-Football.
+        </p>
+        <button
+          className="btn-primary w-full"
+          onClick={async () => {
+            try {
+              const { added, updated } = await sync();
+              if (added === 0 && updated === 0) {
+                toast.show('Todo ya estaba actualizado');
+              } else {
+                const parts = [];
+                if (added > 0) parts.push(`${added} nuevo${added !== 1 ? 's' : ''}`);
+                if (updated > 0) parts.push(`${updated} actualizado${updated !== 1 ? 's' : ''}`);
+                toast.show(`✓ ${parts.join(', ')}`);
+              }
+            } catch (e) {
+              toast.show(e instanceof Error ? e.message : 'Error al sincronizar', 'error');
+            }
+          }}
+          disabled={syncing}
+        >
+          {syncing ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <RefreshCw className="h-4 w-4" />
+          )}
+          {syncing ? 'Sincronizando…' : 'Sincronizar ahora'}
+        </button>
+        {lastSync && (
+          <p className="mt-2 text-center text-[11px] text-gray-400 dark:text-neutral-600">
+            Última sync: {lastSync.toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })}
+          </p>
+        )}
       </section>
 
       <section>
