@@ -21,7 +21,8 @@ export default async function handler(req) {
 
   const response = await fetch(apiUrl, {
     headers: {
-      'x-apisports-key': apiKey,
+      'x-rapidapi-key': apiKey,
+      'x-rapidapi-host': API_HOST,
     },
   });
 
