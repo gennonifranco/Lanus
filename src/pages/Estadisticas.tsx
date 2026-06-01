@@ -72,7 +72,11 @@ export default function Estadisticas() {
         </h3>
         <div className="card divide-y divide-gray-100 dark:divide-neutral-800">
           {stats.topOpponents.map((o) => (
-            <div key={o.opponent} className="py-3 first:pt-0 last:pb-0">
+            <Link
+              key={o.opponent}
+              to={`/partidos?q=${encodeURIComponent(o.opponent)}`}
+              className="block py-3 first:pt-0 last:pb-0 hover:text-granate transition-colors"
+            >
               <div className="mb-1.5 flex items-baseline justify-between">
                 <span className="text-sm font-medium">{o.opponent}</span>
                 <span className="text-sm tabular-nums text-gray-500 dark:text-neutral-400">
@@ -85,7 +89,7 @@ export default function Estadisticas() {
                   style={{ width: `${(o.count / maxOpponent) * 100}%` }}
                 />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
