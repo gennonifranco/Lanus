@@ -104,7 +104,7 @@ export function mapApiFixtureToMatch(f: ApiFixture): Match | null {
 }
 
 export async function fetchLanusMatches(season: number): Promise<Match[]> {
-  const res = await fetch(`/.netlify/functions/api-football?season=${season}`);
+  const res = await fetch(`/api/api-football?season=${season}`);
   if (!res.ok) throw new Error(`Error al consultar la API: ${res.status}`);
   const data = await res.json();
   if (!data.response) throw new Error('Respuesta inesperada de la API');
