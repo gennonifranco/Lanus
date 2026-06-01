@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CalendarCheck, Flame, TrendingDown, TrendingUp } from 'lucide-react';
+import { CalendarCheck, TrendingDown, TrendingUp } from 'lucide-react';
 import { useMatchesCtx } from '../app/MatchesContext';
 import { useStats } from '../hooks/useStats';
 import { MatchCard } from '../components/matches/MatchCard';
@@ -61,38 +61,19 @@ export default function Resumen() {
         </div>
       </div>
 
-      {/* Goles vistos */}
-      <div className="card">
-        <p className="text-sm font-medium text-gray-600 dark:text-neutral-400">Goles que viste</p>
-        <p className="mt-1 text-3xl font-bold tabular-nums">
-          <span className="text-win">{stats.goalsFor}</span>
-          <span className="mx-1.5 text-gray-300 dark:text-neutral-600">·</span>
-          <span className="text-loss">{stats.goalsAgainst}</span>
-        </p>
-        <p className="mt-0.5 text-[11px] text-gray-500 dark:text-neutral-400">a favor · en contra</p>
-      </div>
-
-      {/* Clásicos (solo si jugaste alguno) */}
-      {stats.clasicosPlayed > 0 && (
-        <div className="card flex items-center gap-3">
-          <Flame className="h-7 w-7 shrink-0 text-granate" />
-          <div className="flex-1">
-            <p className="text-sm font-medium">Clásicos</p>
-            <p className="text-[11px] text-gray-500 dark:text-neutral-400">
-              Fuiste a {stats.clasicosPlayed}, ganaste {stats.clasicosWon}
-            </p>
-          </div>
-          <p className="text-xl font-bold tabular-nums">
-            {stats.clasicosWon}<span className="text-gray-400 dark:text-neutral-500">/{stats.clasicosPlayed}</span>
-          </p>
-        </div>
-      )}
-
       {/* Mejor partido */}
       {stats.bestMatch && (
         <div>
           <h3 className="mb-2 text-sm font-semibold">Tu mejor partido</h3>
           <MatchCard match={stats.bestMatch} />
+        </div>
+      )}
+
+      {/* Peor partido */}
+      {stats.worstMatch && (
+        <div>
+          <h3 className="mb-2 text-sm font-semibold">Tu peor partido</h3>
+          <MatchCard match={stats.worstMatch} />
         </div>
       )}
     </div>
