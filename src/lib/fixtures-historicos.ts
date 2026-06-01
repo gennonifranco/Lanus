@@ -247,6 +247,8 @@ export const FIXTURES_HISTORICOS: Fixture[] = [
   H('2016-05-15-argentinos','2016-05-15','Argentinos Juniors','visitante','Liga','Diego Armando Maradona',1,1),
   H('2016-05-22-huracan','2016-05-22','Huracán','local','Liga',LA_FORTALEZA,1,3),
   H('2016-05-29-sanlorenzo','2016-05-29','San Lorenzo','neutral','Liga','Monumental',4,0,'Final'),
+  // Copa Bicentenario 2016 — Final
+  H('2016-08-14-racing-bic','2016-08-14','Racing Club','visitante','Otro','Cilindro de Avellaneda',1,0,'Copa Bicentenario 2016 — Final'),
   // Copa Sudamericana 2016
   H('2016-08-25-independiente-cs','2016-08-25','Independiente','local','Sudamericana',LA_FORTALEZA,0,2,'Octavos ida'),
   H('2016-09-14-independiente-cs','2016-09-14','Independiente','visitante','Sudamericana','Libertadores de América',1,0,'Octavos vuelta — eliminado'),
@@ -298,6 +300,8 @@ export const FIXTURES_HISTORICOS: Fixture[] = [
   H('2017-10-31-river-lib','2017-10-31','River Plate','local','Libertadores',LA_FORTALEZA,4,2,'SF vuelta'),
   H('2017-11-22-gremio','2017-11-22','Gremio','visitante','Libertadores','Arena do Gremio',0,1,'Final ida'),
   H('2017-11-29-gremio','2017-11-29','Gremio','local','Libertadores',LA_FORTALEZA,1,2,'Final vuelta — subcampeón'),
+  // Supercopa Argentina 2016 (jugada en febrero 2017)
+  H('2017-02-04-river-sc','2017-02-04','River Plate','neutral','Otro','Estadio Ciudad de La Plata',3,0,'Supercopa Argentina 2016 — ¡Campeón!'),
   // Copa Argentina 2017
   H('2017-06-08-sportivo-ca','2017-06-08','Sportivo Barracas','neutral','Copa Argentina','Don Antonio Romero',5,1),
   H('2017-08-16-union-ca','2017-08-16','Unión','neutral','Copa Argentina','Arsenal',1,2),
