@@ -21,8 +21,9 @@ export default async function handler(req, res) {
     return res.status(response.status).json({ error: `API error: ${response.status}` });
   }
 
-  const data = await response.json();
-  console.log('API-Football response keys:', Object.keys(data), 'errors:', data.errors);
+  const text = await response.text();
+  console.log('API status:', response.status, 'body:', text.slice(0, 300));
+  const data = JSON.parse(text);
   res.setHeader('Access-Control-Allow-Origin', '*');
   return res.status(200).json(data);
 }
